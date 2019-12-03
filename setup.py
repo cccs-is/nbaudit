@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
       name='nbaudit',
-      version='0.0.3',
+      version='0.0.4',
       description='Audit Logging Extension for the Jupyter Notebook Server',
       author='cccs',
       author_email='',
