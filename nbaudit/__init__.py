@@ -1,4 +1,4 @@
-from .config import AuditLogger
+from .auditLogger import AuditLogger
 from .auditHandler import ZMQChannelAuditHandler
 import logging
 
@@ -28,17 +28,10 @@ def load_jupyter_server_extension(nb_server_app):
                break
 
     if index1 >=0 and index2>=0:
-        # Create a logger for AuditLogger at INFO level.
-        alogger = logging.getLogger('nbaudit-logger')
-    
-        handler = audit_logger.getHandler()
-        formatter = logging.Formatter(audit_logger.log_format)
-        handler.setFormatter(formatter)
-        alogger.addHandler(handler)
-        alogger.setLevel(audit_logger.log_level)
+        audit_logger.setup()
 
         rules[index1].target.rules[index2].target = ZMQChannelAuditHandler
-        rules[index1].target.rules[index2].target_kwargs = {'audit_logger': alogger,}
+        rules[index1].target.rules[index2].target_kwargs = {'audit_logger': audit_logger,}
         nb_server_app.log.info("nbaudit enabled!")
     else:
         nb_server_app.log.info("Failed to activate nbaudit server extension")
