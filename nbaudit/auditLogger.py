@@ -6,6 +6,9 @@ import logging
 
 class AuditLogger(Configurable):
 
+  def __init__(self):
+    self.setupDone = False
+
   # This is just an example trait
   # log_config = Dict(
   #       {},
@@ -36,14 +39,15 @@ class AuditLogger(Configurable):
 
 
   def setup(self):
-    # Create a logger for AuditLogger at INFO level.
-    self.logger = logging.getLogger('AuditLogger')
-    self.logger.propagate = False
-    handler = self.getHandler()
-    formatter = logging.Formatter(self.log_format)
-    handler.setFormatter(formatter)
-    self.logger.addHandler(handler)
-    self.logger.setLevel(self.log_level)
+    if not self.setupDone:
+      # Create a logger for AuditLogger at INFO level.
+      self.logger = logging.getLogger('AuditLogger')
+      self.logger.propagate = False
+      handler = self.getHandler()
+      formatter = logging.Formatter(self.log_format)
+      handler.setFormatter(formatter)
+      self.logger.addHandler(handler)
+      self.logger.setLevel(self.log_level)
 
 
   def getHandler(self):

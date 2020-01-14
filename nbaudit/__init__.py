@@ -28,7 +28,8 @@ def load_jupyter_server_extension(nb_server_app):
                break
 
     if index1 >=0 and index2>=0:
-        audit_logger.setup()
+        # postpone setup until later to make sure the container is completely initialized.
+        # audit_logger.setup()
 
         rules[index1].target.rules[index2].target = ZMQChannelAuditHandler
         rules[index1].target.rules[index2].target_kwargs = {'audit_logger': audit_logger,}

@@ -9,6 +9,9 @@ class ZMQChannelAuditHandler(ZMQChannelsHandler):
 
     def initialize(self, audit_logger=None):
         super(ZMQChannelAuditHandler, self).initialize()
+        
+        if audit_logger != None:
+          audit_logger.setup()
 
         self.audit_logger = audit_logger
         self.user = getpass.getuser()
