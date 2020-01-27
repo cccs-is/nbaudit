@@ -6,7 +6,8 @@ import logging
 
 class AuditLogger(Configurable):
 
-  def __init__(self):
+  def __init__(self, *args, **kwargs):
+    super(AuditLogger, self).__init__(*args, **kwargs)
     self.setupDone = False
 
   # This is just an example trait
